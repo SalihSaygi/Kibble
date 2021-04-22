@@ -13,12 +13,6 @@ const BotSchema = mongoose.Schema({
     type: String,
     required: true
   },
-  token: {
-      type: String,
-  },
-  refreshToken: {
-      type: String
-  },
   createdBy: {
       type: mongoose.Schema.Types.ObjectId, 
       ref: 'User'

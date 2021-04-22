@@ -5,13 +5,13 @@ import Bot from '../models/botModel.js';
 
 const getBots = asyncHandler(async (req, res) => {
   const bots = await Bot.find({})
-    .populate('user').sort({updatedAt: 'desc'}).lean();
+    .populate('User').sort({updatedAt: 'desc'}).lean();
   res.json(bots);
 });
 
 const getBotById = asyncHandler(async (req, res) => {
   const bot = await (await Bot.findById(req.params.id)).
-    populated('user').lean();
+    populated('User').lean();
   if (bot) {
     res.json(bot);
   } else {

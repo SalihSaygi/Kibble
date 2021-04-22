@@ -1,13 +1,14 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
+import { clearKey } from '../services/cache.js'
 
 const getUsers = asyncHandler(async (req, res) => {
-  const users = await User.find({});
+  const users = await User.find({}).populate('Bot').lean().cache({ time: 10 });
   res.json(users);
 });
 
 const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id);
+  const user = await User.findById(req.params.id).populate('Bot').lean().cache();
   if (user) {
     res.json(user);
   } else {
@@ -17,7 +18,7 @@ const getUserById = asyncHandler(async (req, res) => {
 });
 
 const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id);
+  const user = await User.findById(req.user.id).populate('Bot').lean().cache();
 
   if (user) {
     res.json({
@@ -32,7 +33,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
 //Get logged in user's sepcified bot
 //api/users/profile/bots/:id
 const getUsersOneBotById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id)
+  const user = await User.findById(req.user.id).populate('Bot').lean().cache();
   const bot = await Bot.findById(req.params.id)
   if (user) {
     const { hasBots } = user
@@ -53,7 +54,7 @@ const getUsersOneBotById = asyncHandler(async (req, res) => {
 //Get logged in user's bots
 //api/users/profile/bots
 const getUsersBotsById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id)
+  const user = await User.findById(req.user.id).populate('Bot').lean().cache();
 
   if (user) {
     const { hasBots } = user
@@ -69,12 +70,26 @@ const getUsersBotsById = asyncHandler(async (req, res) => {
   }
 })
 
-// const updateUser = asyncHandler(async (req, res) => {
-//     const user = await User.findById(req.user.id)
-    
-//     if(user) {
-//         user.githubId = req.body.githubId || user.name
-//     }
-// }
+const enterApiToken = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user.id).populate().lean().cache()
 
-export { getUsers, getUserById, getUserProfile, getUsersOneBotById, getUsersBotsById }
+    const apiToken = req.body.apiToken
+
+    if(user) {
+        user.apiToken = apiToken
+        const updatedUser = await user.save()
+        res.json(updatedUser)
+    } else {
+      res.status(404);
+      throw new Error('Error entering api token')
+    }
+})
+
+export { 
+  getUsers, 
+  getUserById, 
+  getUserProfile, 
+  getUsersOneBotById, 
+  getUsersBotsById, 
+  enterApiToken 
+}

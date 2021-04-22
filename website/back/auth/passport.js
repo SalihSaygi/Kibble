@@ -1,6 +1,5 @@
 import GitHubStrategy from 'passport-github2'
 GitHubStrategy.Strategy
-import mongoose from 'mongoose'
 import User from '../models/userModel.js'
 import dotenv from 'dotenv'
 dotenv.config()
@@ -11,7 +10,7 @@ const githubPassport = (passport) => {
       {
         clientID: process.env.GITHUB_CLIENT_ID,
         clientSecret: process.env.GITHUB_CLIENT_SECRET,
-        callbackURL: "/auth/github/callback",
+        callbackURL: `${process.env.HOST}/auth/github/callback`,
       },
       async (accessToken, refreshToken, profile, done) => {
           console.log('1')
@@ -25,7 +24,6 @@ const githubPassport = (passport) => {
             const newUser = {
               githubId: profile.id,
               displayName: profile.displayName,
-              username: profile.username,
               image: profile.photos[0].value,
               email: profile.emails[0].value,
             }

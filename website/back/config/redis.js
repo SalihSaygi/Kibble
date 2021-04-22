@@ -12,5 +12,6 @@ const REDIS_PORT_N = parseInt(REDIS_PORT)
 export const REDIS_OPTIONS = {
   port: REDIS_PORT_N,
   host: REDIS_HOST,
-  password: REDIS_PASSWORD
+  password: REDIS_PASSWORD,
+  retry_strategy: () => 1000
 }

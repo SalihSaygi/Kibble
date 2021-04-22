@@ -1,14 +1,30 @@
 //This is an example data to be tested in development.
-//Also can be used create admin accounts for now.
-
-import bcrypt from 'bcrypt'
 
 const users = [
-    {
-        githubId: "SalihSaygi",
-        displayName: "SalS",
-        image: "https://avatars.githubusercontent.com/u/61725374?v=4",
-        email: "salih.saygie@gmail.com",
-        hasBots: []
-    }
+  {
+    githubId: 'CanMenderes',
+    displayName: 'Can Menderes',
+    image: 'https://github.com/identicons/app/oauth_app/1596867',
+    email: 'canmenderes@example.com',
+    apiToken: "123456789",
+    hasBots: ['TestUser1', 'MusicPlayer3']
+  },
+  {
+    githubId: 'JohnDoe',
+    displayName: 'John Doe',
+    image: 'https://github.com/identicons/app/oauth_app/1596867',
+    email: 'johndoe@example.com',
+    apiToken: "qwertyui",
+    hasBots: ['Bot2', 'ChatFilter']
+  },
+  {
+    githubId: 'JaneSnow',
+    displayName: 'Jane Snow',
+    image: 'https://github.com/identicons/app/oauth_app/1596867',
+    email: 'janesnow@example.com',
+    apiToken: 'asdfghjk',
+    hasBots: ['ForrestGump', "Father"]
+  },
 ]
+
+export default users

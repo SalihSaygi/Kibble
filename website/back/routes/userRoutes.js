@@ -5,12 +5,14 @@ import {
   getUserById,
   getUserProfile,
   getUsersOneBotById,
-  getUsersBotsById
+  getUsersBotsById,
+  enterApiToken
 } from '../controllers/userController.js';
-userRouter.use('/', getUsers);
-userRouter.use('/:id', getUserById)
-userRouter.use('/profile', getUserProfile)
-userRouter.use('/profile/bots', getUsersBotsById)
-userRouter.use('/profile/bots:id', getUsersOneBotById)
+userRouter.get('/', getUsers);
+userRouter.get('/:id', getUserById)
+userRouter.get('/profile', getUserProfile)
+userRouter.get('/profile/bots', getUsersBotsById)
+userRouter.get('/profile/bots:id', getUsersOneBotById)
+userRouter.put('/profile', enterApiToken)
 
 export default userRouter;

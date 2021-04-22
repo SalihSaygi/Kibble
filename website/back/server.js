@@ -1,8 +1,10 @@
 import express from 'express';
 import dotenv from 'dotenv'
-const ENV = dotenv.config()
+dotenv.config()
 import path from 'path'
+import util from 'util'
 import passport from 'passport'
+import mongoose from 'mongoose'
 import connectDB from './db.js'
 import {SESSION_OPTIONS} from './config/session.js'
 import cors from 'cors'
@@ -12,15 +14,14 @@ import morgan from 'morgan'
 import passportConfig from "./auth/passport.js"
 //Redis Imports
 import connectRedis from 'connect-redis'
-import Redis from 'ioredis'
-import {REDIS_OPTIONS} from './config/redis.js'
+import client from './redisClient.js'
 //Route Imports
 import userRouter from './routes/userRoutes.js'
 import botRouter from './routes/botRoutes.js'
 //3rd Part API Imports
-import spotifyApi from './services/spotify.js'
+import spotifyApi from './routes/spotify.js'
 //Passport Router Import
-import passportRouter from './routes/passportRoutes.js'
+import passportRouter from './routes/githubRoutes.js'
 //Middlewae Imports
 import { notFound, errorHandler } from './middlewares/errorMiddlewares.js'
 
@@ -32,7 +33,9 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }))
 app.use(cors({
-    origin: process.env.ORIGIN_URL
+    origin: process.env.ORIGIN_URL,
+    methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+    credentials: true
 }))
 app.use(helmet())
 
@@ -43,7 +46,7 @@ if (process.env.NODE_ENV === 'development') {
 //Session
 
 const RedisStore = connectRedis(session)
-const client = new Redis(REDIS_OPTIONS)
+
 client.on('error', function (error) {
   console.dir(error)
   console.error("Redis Error")

@@ -5,12 +5,10 @@
     "main": "server.js",
     "type": "module",
     "scripts": {
-        "start": "node server",
-        "server": "nodemon back/server",
-        "client": "npm start --prefix front",
-        "dev": "concurrently \"npm run server\" \"npm run client\"",
-        "data:import": "node back/seeder",
-        "data:destroy": "node back/seeder -d",
+        "dev": "set NODE_ENV=dev&& nodemon back/server",
+        "prod": "set NODE_ENV=prod&& node back/server",
+        "data:import": "node data/setupData",
+        "data:destroy": "node data/setupData -d",
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix front && npm run build --prefix front"
     },
     "keywords": [],

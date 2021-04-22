@@ -17,6 +17,10 @@ const UserSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  apiToken: {
+    type: String,
+    required: true
+  },
   hasBots: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Bot'

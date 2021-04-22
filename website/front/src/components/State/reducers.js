@@ -42,13 +42,6 @@ const initialNewBotState = {
     refreshToken: ''
 }
 
-const setNewBotReducer = (state, action) => {
-  switch (action.type) {
-    case "profile":
-
-  }
-};
-
 const initialSpotifyState = {
   isAuthenticated: false
 }
