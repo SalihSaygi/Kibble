@@ -18,12 +18,14 @@ import client from './redisClient.js'
 //Route Imports
 import userRouter from './routes/userRoutes.js'
 import botRouter from './routes/botRoutes.js'
+import setupRouter from './routes/setupRoutes'
 //3rd Part API Imports
 import spotifyApi from './routes/spotify.js'
 //Passport Router Import
-import passportRouter from './routes/githubRoutes.js'
+import githubRouter from './routes/githubRoutes.js'
 //Middlewae Imports
 import { notFound, errorHandler } from './middlewares/errorMiddlewares.js'
+import localRouter from './routes/localRoutes.js';
 
 passportConfig(passport)
 connectDB()
@@ -67,12 +69,15 @@ app.use(
 app.use(passport.initialize())
 app.use(passport.session())
 //Passport Routes
-app.use('/auth', passportRouter)
-
+app.use('/auth', githubRouter)
+app.use('/admin', localRouter)
+//Setup Route
+app.use('/setup', setupRouter)
 //API Routes
 app.use('/api/bots', botRouter)
 app.use('/api/users', userRouter)
 app.use('/api/spotify', spotifyApi)
+
 
 const __dirname = path.resolve()
 app.use('/uploads', 

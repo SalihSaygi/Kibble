@@ -5,3 +5,5 @@ import { admin, dev } from '../controllers/setupController'
 
 setupRouter.post('/admin', admin)
 setupRouter.post('/dev', dev)
+
+export default setupRouter

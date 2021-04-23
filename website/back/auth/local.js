@@ -21,6 +21,7 @@ export const localPassport = (passport) => {
         bcrypt.compare(password, user.password, (err, isMatch) => {
           if (err) throw err;
           if (isMatch) {
+              req.session.destroy()
             return done(null, user);
           } else {
             return done(null, false, { message: 'Password incorrect' });

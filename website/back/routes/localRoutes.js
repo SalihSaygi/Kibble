@@ -14,7 +14,7 @@ localRouter.get('/logout', (req, res) => {
 });
 
 localRouter.get("/login/success", (req, res) => {
-  if (req.user) {
+  if (req.user && req.session) {
     res.status(200).json(req.user);
   } 
 });
