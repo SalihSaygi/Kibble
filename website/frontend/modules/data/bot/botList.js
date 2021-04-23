@@ -1,12 +1,7 @@
 import React from 'react';
 import Bot from './botDetails';
-
- import { useQueryClient } from 'react-query'
  
-const Bot = () => {
-    //Use this to change stuff
-  const queryClient = useQueryClient()
- 
+const Bots = () => { 
    // Queries
   const {isLoading, isError, data, error} = useQuery('bots', getBot)
 
@@ -20,11 +15,11 @@ const Bot = () => {
 
   return (
     <>
-    { botListList.map((data) => {
-        if (data) {
+    { data.map((d) => {
+        if (d) {
           return (
-            <div key={data.githubId}>
-              <Bot bot={data}/>
+            <div key={d.githubId}>
+              <Bot bot={d}/>
 	        </div>	
     	   )	
     	 }
@@ -34,4 +29,4 @@ const Bot = () => {
   );
 }
 
-export default Bot
+export default Bots
