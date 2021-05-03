@@ -1,12 +1,12 @@
 import asyncHandler from 'express-async-handler'
-import Privilieged from '../models/privilegedModel'
+import Privilieged from '../models/privilegedModel.js'
 
 const admin = asyncHandler(async (req, res, next) => {
 
-    const exists = await Privilieged.exists({ username: "admin" });
+    const exists = await Privileged.exists({ username: "admin" });
 
 	if (exists) {
-		res.redirect(`${req.hostname}/dashboard`);
+		res.redirect(`${req.hostname}/admin/login`);
 		return;
 	};
     bcrypt.genSalt(10, function (err, salt) {
@@ -32,7 +32,8 @@ const admin = asyncHandler(async (req, res, next) => {
 
  const dev = asyncHandler(async (req, res, next) => {
 
-    await Privilieged.count({ roles: "dev" }, function(err, count) {
+    await Privileged.count({ roles: "dev" }, function(err, count) {
+		if(err) return NodeList(err)
         if(count > 5) {
             res.redirect('/login')
             return

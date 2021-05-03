@@ -1,0 +1,13 @@
+Room && Message
+      |
+ BotSettings
+      |
+QueueController
+      |
+    Queue
+      |
+Listener && Song
+
+--------------------------------------
+Waiting for the finish of Bot directory
+

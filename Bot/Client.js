@@ -1,13 +1,26 @@
-const { wrap } = require('@dogehouse/kebab')
-const { Client: Kibble } = require('dogehouse.js')
-const Client = async ({
-  token,
-  refreshToken,
-}) => {
-  const connection = await Kibble.connect(token, refreshToken, {
-    onConnectionTaken: console.error,
-  });
-  return wrap(connection).subscribe.newChatMsg((message))
+require("dotenv").config();
+
+const { raw, wrap, tokensToString, stringToToken } = require("@dogehouse/kebab");
+const { credentials } = require ('./credentials')
+
+const Client = async () => {
+  try {
+    const wrapper = wrap(await raw.connect(
+      credentials.accessToken,
+      credentials.refreshToken,
+      {
+        onConnectionTaken: () => {
+          console.error("\nAnother client has taken the connection");
+          process.exit();
+        }
+      }
+    ));
+    return wrapper
+  } catch(e) {
+    if (e.code === 4001) console.error("invalid token!");
+    console.error(e)
+  }
+    
 };
 
-module.export = createClient;
+export default Client

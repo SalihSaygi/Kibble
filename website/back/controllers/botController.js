@@ -24,7 +24,6 @@ const getBotById = asyncHandler(async (req, res) => {
 const updateBot = asyncHandler(async (req, res) => {
 
     const {
-        githubId,
         displayName,
         image,
         email,
@@ -36,10 +35,8 @@ const updateBot = asyncHandler(async (req, res) => {
     const bot = await Bot.findById(req.params.id).populated('user').lean()
 
     if(bot) {
-        bot.githubIb = githubId,
         bot.displayName = displayName,
         bot.image = image,
-        bot.email = email,
         bot.token = token,
         bot.refreshToken = refreshToken,
         bot.createdBy = createdBy

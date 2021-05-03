@@ -1,10 +1,6 @@
 import mongoose from 'mongoose'
 
 const BotSchema = mongoose.Schema({
-  githubId: {
-    type: String,
-    required: true,
-  },
   displayName: {
     type: String,
     required: true,

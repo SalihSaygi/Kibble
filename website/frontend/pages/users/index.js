@@ -1,7 +1,3 @@
-//TODO: add injection packages 
+import UserList from '../../modules/data/user/userList'
 
-import users from '../../test/data/user/testusers'
-
-export default function CarsList() {
-    return 
-}
+export default UserList

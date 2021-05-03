@@ -1,4 +1,4 @@
-import axios from 'axios'
+import { axi as axios } from './axios'
 
 async function getBots() {
     try {

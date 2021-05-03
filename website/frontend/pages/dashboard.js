@@ -1,3 +1,3 @@
-export default function Home() {
-    return <h1>helloo</h1>
-}
+import Header from '../modules/dashboard/Header';
+
+export default Header

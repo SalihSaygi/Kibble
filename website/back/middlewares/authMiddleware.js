@@ -1,5 +1,3 @@
-const crypto = require('crypto');
-
 const client = process.env.HOST
 
 export const ensureAuthUser  = (res, res, next) => {

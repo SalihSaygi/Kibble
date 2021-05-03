@@ -35,7 +35,7 @@ const login = (req, res) => {
                 refreshToken: data.body.refresh_token,
                 expiresIn: data.body.expires_in
             })
-        }).catch(err => {
+        }).catch(() => {
             res.sendStatus(400)
     })
 }
@@ -44,5 +44,10 @@ const lyrics = asyncHandler(async (req, res) => {
     const lyrics = (await lyricsFinder(req.query.artist, req.query.track)) || "No Lyrics Found"
     res.json({ lyrics })
 })
+
+const userSongs = asyncHandler(async (req, res) => {
+
+})
+
 
 export { login, lyrics, refresh }

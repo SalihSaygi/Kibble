@@ -1,4 +1,4 @@
-import { useMediaQuery } from "@material-ui/core/styles"
+import { useMediaQuery } from "@material-ui/core"
 
 const isPreferenceSupported = () => {
     if(window.matchMedia('(prefers-color-scheme)').media !== 'not all') {

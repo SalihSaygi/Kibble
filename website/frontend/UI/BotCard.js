@@ -1,12 +1,11 @@
 import React from 'react';
 
-const Bot = ({ bot }) => {
+const Bot = ({ bot, user }) => {
   return (
-    <div className="card">
-      <img src={bot.image} alt="profilePhoto"/>
-      <h3>{ bot.displayName }</h3>
-      <h4>{bot.githubId}</h4>
-      <h4>Created By: - {bot.createdBy}</h4>
+    <div className="bot-card">
+      <img className="bot-photo" src={bot.image} alt="bot-photo"/>
+      <h3 className="bot-name" >{ bot.displayName }</h3>
+      {/* <h4>Created By: - {bot.createdBy == user.githubId ? "You"  : bot.createdBy }</h4> */}
     </div>
   );
 }
