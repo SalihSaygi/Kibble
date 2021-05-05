@@ -1,10 +1,13 @@
 const client = process.env.HOST
+import jwt from 'jsonwebtoken';
+import asyncHandler from 'express-async-handler';
+import User from '../models/userModel.js';
 
-export const ensureAuthUser  = (res, res, next) => {
+export const ensureAuthUser  = (req, res, next) => {
     if(req.isAuthenticated()) {
         return next()
     } else {
-        res.redirect(`${process.env.HOST}/auth/login`)
+        res.redirect(`${client}/auth/login`)
     }
     
 }
@@ -15,6 +18,14 @@ export const ensureGuest = (req, res, next) => {
     } else {
         res.redirect(`${client}/dashboard`)
     }
+}
+
+export const ensurePriviliged = (req, res, next) => {
+  if(req.user) {
+    return next()
+  } else {
+    res.redirect(`${client}/admin/login`)
+  }
 }
 
 export function roleChecker(...permittedRoles) {
@@ -33,7 +44,7 @@ export function roleChecker(...permittedRoles) {
     }
 }
 
-export default function permit(...permittedRoles) {
+export function permit(...permittedRoles) {
   // return a middleware
   return (request, response, next) => {
     const { user } = request
@@ -45,3 +56,31 @@ export default function permit(...permittedRoles) {
     }
   }
 }
+
+export const protect = asyncHandler(async (req, res, next) => {
+  let token;
+
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer')
+  ) {
+    try {
+      token = req.headers.authorization.split(' ')[1];
+
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+      req.user = await User.findById(decoded.id).select('-apiToken');
+
+      next();
+    } catch (error) {
+      console.error(error);
+      res.status(401);
+      throw new Error('Not authorized, token failed');
+    }
+  }
+
+  if (!token) {
+    res.status(401);
+    throw new Error('No token');
+  }
+});
