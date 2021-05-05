@@ -11,7 +11,7 @@
   <h3 align="center">Kibble</h3>
 
   <p align="center">
-    A service to creating bots with features for <a href="https://github.com/benawad/dogehouse">DogeHouse</a> with the collaboration of <a href="https://github.com/dogegarden"DogeGarden</a> Libraries and APIs
+    A service to creating bots with features for <a href="https://github.com/benawad/dogehouse">DogeHouse</a> with the collaboration of <a href="https://github.com/dogegarden">DogeGarden</a> Libraries and APIs
     <br />
     <a href="https://github.com/SalihSaygi/Kibble"><strong>Explore the docs »</strong></a>
     <br />
@@ -174,6 +174,6 @@ Project Link: [https://github.com/SalihSaygi/Kibble](https://github.com/SalihSay
 [issues-shield]: https://img.shields.io/github/issues/SalihSaygi/Kibble.svg?style=for-the-badge
 [issues-url]: https://github.com/SalihSaygi/Kibble/issues
 [license-shield]: https://img.shields.io/github/license/SalihSaygi/Kibble.svg?style=for-the-badge
-[license-url]: https://github.com/SalihSaygi/Kibble//master/LICENSE.txt
+[license-url]: https://github.com/SalihSaygi/Kibble/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/salih-saygi-219b6b208/
