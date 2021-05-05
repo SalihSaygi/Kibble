@@ -69,7 +69,7 @@ const getUsersBotsById = asyncHandler(async (req, res) => {
     throw new Error('User not found')
   }
 })
-
+//Normal Way
 const enterApiToken = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user.id).populate().lean().cache()
 
@@ -78,7 +78,13 @@ const enterApiToken = asyncHandler(async (req, res) => {
     if(user) {
         user.apiToken = apiToken
         const updatedUser = await user.save()
-        res.json(updatedUser)
+        res.json({
+          _id: updatedUser._id,
+          githubId: updatedUser.githubId,
+          displayName: updatedUser.displayName,
+          image: updatedUser.image, 
+          hasBots: updatedUser.hasBots
+        })
     } else {
       res.status(404);
       throw new Error('Error entering api token')

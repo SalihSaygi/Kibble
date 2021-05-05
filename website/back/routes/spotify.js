@@ -5,6 +5,6 @@ const spotifyRouter = express.Router()
 spotifyRouter.post('/refresh', refresh)
 spotifyRouter.post('/login', login)
 spotifyRouter.get('/lyrics', lyrics)
-spotifyRouter.get('/mysongs', userSongs)
+// spotifyRouter.get('/mysongs', userSongs)
 
 export default spotifyRouter

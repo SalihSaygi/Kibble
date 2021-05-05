@@ -59,7 +59,6 @@ export const deletePriviliged = (req, res) => {
                     message: "Couldn't find the priviliged with id: " + req.params.id
                 })
             }
-            if(priviliged.username == "admin")
             res.status(200).json(
                 {
                     message:

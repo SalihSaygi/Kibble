@@ -1,8 +1,8 @@
 import crypto from 'crypto'
 import Privileged from '../models/privilegedModel.js';
-import { changePassword } from 'passport-local-mongoose'
+import passportLocalMongoose  from 'passport-local-mongoose'
 
-const forgot = (req, res) => {
+const forgot = async(req, res) => {
     const token = (await promisify(crypto.randomBytes)(20)).toString('hex');
     const user = Privileged.find(user => user.email === req.body.email);
 
@@ -59,7 +59,7 @@ const postToken = (req, res) => {
     })
 }
 
-const changePassword = (req, res) => {
+const changePass = (req, res) => {
     Privileged.findOne({ _id: req.user.id },(err, user) => {
     // Check if error connecting
     if (err) {
@@ -85,4 +85,4 @@ const changePassword = (req, res) => {
     })
 }
 
-export { forgot, getToken, postToken, changePassword }
+export { forgot, getToken, postToken, changePass }

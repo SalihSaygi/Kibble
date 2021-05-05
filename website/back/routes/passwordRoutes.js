@@ -4,12 +4,12 @@ import {
   forgot, 
   getToken,
   postToken,
-  changePassword
+  changePass
 } from '../controllers/passwordController.js';
 
 passwordRouter.get('/forgot', forgot)
 passwordRouter.get('/reset/:token', getToken)
 passwordRouter.post('/reset/:token', postToken)
-passwordRouter.post('/change', changePassword)
+passwordRouter.post('/change', changePass)
 
 export default passwordRouter;

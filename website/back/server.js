@@ -9,6 +9,7 @@ import cors from 'cors'
 import helmet from 'helmet'
 import session from 'express-session'
 import morgan from 'morgan'
+import methodOverride from 'method-override'
 //Passport
 import passport from 'passport'
 import passportConfig from "./auth/passport.js"
@@ -19,12 +20,12 @@ import client from './redisClient.js'
 import userRouter from './routes/userRoutes.js'
 import botRouter from './routes/botRoutes.js'
 //Password Route Imports
-import passwordRouter from './routes/passwordRouter.js'
+import passwordRouter from './routes/passwordRoutes.js'
 //Dev Test Data Imports
 import setupRouter from './routes/setupRoutes.js'
 //3rd Part API Imports
 import spotifyRouter from './routes/spotify.js'
-import youtubeRouter from './routes/youtube.js'
+// import youtubeRoutes from './routes/youtube.js'
 //Passport Router Import
 import githubRouter from './routes/githubRoutes.js'
 import localRouter from './routes/localRoutes.js';
@@ -81,10 +82,9 @@ app.use('/setup', setupRouter)
 //API Routes
 app.use('/api/bots', botRouter)
 app.use('/api/users', userRouter)
-app.use('/api/spotify', spotifyApi)
 app.use('/password', passwordRouter)
 app.use('/audio/spotify', spotifyRouter)
-app.use('audio/youtube', youtubeRouter)
+// app.use('audio/youtube', youtubeRouter)
 
 const __dirname = path.resolve()
 app.use('/uploads', 
