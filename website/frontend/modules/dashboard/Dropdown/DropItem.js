@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router'
 import React from 'react'
+import './index.css'
 
 const DropItem = ({url, goToMenu, leftIcon, rightIcon, children}) => {
     const handleClick = (e) => {
@@ -11,10 +12,10 @@ const DropItem = ({url, goToMenu, leftIcon, rightIcon, children}) => {
         router.push(url)
     }
     return (
-        <a href="#" onClick={handleClick}>
-            <span>{leftIcon}</span>
+        <a href="#" className="menu-item" onClick={handleClick}>
+            <span className="icon-button">{leftIcon}</span>
             {children}
-            <span>{rightIcon}</span>
+            <span className="icon-right">{rightIcon}</span>
         </a>
     )
 }

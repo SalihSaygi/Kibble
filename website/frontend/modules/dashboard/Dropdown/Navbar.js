@@ -1,9 +1,10 @@
 import React from 'react'
+import './index.css'
 
 const Navbar = ({children}) => {
     return (
-        <nav>
-           <ul>{children}</ul> 
+        <nav className="navbar">
+           <ul className="navbar-nav">{children}</ul> 
         </nav>
     )
 }

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import './index.css'
 
 const Item = ({icon, children}) => {
     const [open, setOpen] = useState(false)
@@ -7,8 +8,8 @@ const Item = ({icon, children}) => {
         setOpen(!open)
     }
     return (
-        <li>
-          <a href="#" onClick={handleClick}>
+        <li className="nav-item">
+          <a href="#" className="icon-button" onClick={handleClick}>
               {icon}
           </a>  
           {open && children}
