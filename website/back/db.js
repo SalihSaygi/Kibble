@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import Grid from 'gridfs-stream';
 import { MONGO_OPTIONS } from './config/db.js'
-import gfs from './gfs.js'
+let gfs
 
 const connectDB = async () => {
   try {
