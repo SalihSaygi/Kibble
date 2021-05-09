@@ -8,8 +8,8 @@ passportRouter.get('/github',
 
 passportRouter.get('/github/callback', 
   passport.authenticate('github', { 
-      failureRedirect: '/auth/login/failed', 
-      successRedirect: 'auth/login/success'})
+      failureRedirect: '/login/failed', 
+      successRedirect: '/login/success'})
 );
 
 passportRouter.get("/login/success", (req, res) => {
