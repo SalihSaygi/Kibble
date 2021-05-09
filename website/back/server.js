@@ -19,6 +19,7 @@ import client from './redisClient.js'
 //Route Imports
 import userRouter from './routes/userRoutes.js'
 import botRouter from './routes/botRoutes.js'
+import priviligedRouter from './routes/privilegedRoutes.js'
 //Password Route Imports
 import passwordRouter from './routes/passwordRoutes.js'
 //Dev Test Data Imports
@@ -82,6 +83,7 @@ app.use('/setup', setupRouter)
 //API Routes
 app.use('/api/bots', botRouter)
 app.use('/api/users', userRouter)
+app.use('/api/privileged', priviligedRouter)
 app.use('/password', passwordRouter)
 app.use('/audio/spotify', spotifyRouter)
 // app.use('audio/youtube', youtubeRouter)
