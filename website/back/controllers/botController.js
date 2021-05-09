@@ -26,7 +26,6 @@ const updateBot = asyncHandler(async (req, res) => {
     const {
         displayName,
         image,
-        email,
         token,
         refreshToken,
         createdBy
