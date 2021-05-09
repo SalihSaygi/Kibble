@@ -21,15 +21,27 @@ const githubPassport = (passport) => {
             done(null, user)
             console.log('3')
           } else {
-            const newUser = {
-              githubId: profile.id,
-              displayName: profile.displayName,
-              image: profile.photos[0].value,
-              email: profile.emails[0].value,
+            if(profile.email[0].value) {
+              const newUser = {
+                githubId: profile.id,
+                displayName: profile.displayName,
+                image: profile.photos[0].value,
+                email: profile.emails[0].value
+              }
+              const savedUser = await newUser.save()
+              done(null, savedUser)
+              console.log('with email')
+            } else {
+              const newUser = {
+                githubId: profile.id,
+                displayName: profile.displayName,
+                image: profile.photos[0].value,
+              }
+              const savedUser = await newUser.save()
+              done(null, savedUser)
+              console.log('4')
             }
-            const savedUser = await newUser.save()
-            done(null, savedUser)
-            console.log('4')
+            
           }
         } catch (err) {
           console.error(err)
