@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import SearchBar from './SearchBar'
-import UserList from '../data/user/userList'
+import UserList from '../data/back/user/dataList'
 
-const SearchPage = (props) => {
+const SearchPage = ({url}) => {
   const [input, setInput] = useState('');
-  const [userListDefault, setUserListDefault] = useState();
-  const [userList, setUserList] = useState();
+  const [dataListDefault, setDataListDefault] = useState();
+  const [dataList, setDataList] = useState();
 
   const fetchData = async () => {
-    return await fetch('https://restcountries.eu/rest/v2/all')
+    return await fetch(url)
       .then(response => response.json())
       .then(data => {
          setUserList(data) 
@@ -16,8 +16,8 @@ const SearchPage = (props) => {
        });}
 
   const updateInput = async (input) => {
-     const filtered = userListDefault.filter(user => {
-      return user.name.toLowerCase().includes(input.toLowerCase())
+     const filtered = userListDefault.filter(data => {
+      return data.name.toLowerCase().includes(input.toLowerCase())
      })
      setInput(input);
      setUserList(filtered);
@@ -32,7 +32,7 @@ const SearchPage = (props) => {
        input={input} 
        onChange={updateInput}
       />
-      <UserList userList={userList}/>
+      <UserList/> ? <UserList userList={dataList}/> : <BotList botList={dataList}/> 
     </>
    );
 }
