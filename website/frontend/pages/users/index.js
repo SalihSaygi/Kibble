@@ -1,3 +1,3 @@
-import UserList from '../../modules/data/user/userList'
+import UserList from '../../modules/data/back/user/userList'
 
 export default UserList

@@ -1,4 +1,4 @@
-import axi from "../../api/axios";
+import axi from "../../api/back/axios";
 
 const getFiles = () => {
     return axi.get('/files')
