@@ -1,6 +1,6 @@
 import LocalStrategy from ('passport-local');
 LocalStrategy.Strategy
-import Privileged from '../models/privilegedModel'
+import Privileged from '../models/privilegedModel.js'
 import bcrypt from bcryptjs
 import dotenv from 'dotenv'
 dotenv.config()
@@ -21,7 +21,7 @@ export const localPassport = (passport) => {
         bcrypt.compare(password, user.password, (err, isMatch) => {
           if (err) throw err;
           if (isMatch) {
-              req.session.destroy()
+              req.session.destroy() //destroy normal user session
             return done(null, user);
           } else {
             return done(null, false, { message: 'Password incorrect' });
