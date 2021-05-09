@@ -1,4 +1,4 @@
-const client = process.env.HOST
+const HOST = process.env.HOST
 import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
@@ -7,7 +7,7 @@ export const ensureAuthUser  = (req, res, next) => {
     if(req.isAuthenticated()) {
         return next()
     } else {
-        res.redirect(`${client}/auth/login`)
+        res.redirect(`${HOST}/auth/github`)
     }
     
 }
@@ -16,7 +16,7 @@ export const ensureGuest = (req, res, next) => {
     if(!req.isAuthenticated()) {
         return next();
     } else {
-        res.redirect(`${client}/dashboard`)
+        res.redirect(`${HOST}/dashboard`)
     }
 }
 
@@ -24,7 +24,7 @@ export const ensurePriviliged = (req, res, next) => {
   if(req.user) {
     return next()
   } else {
-    res.redirect(`${client}/admin/login`)
+    res.redirect(`${HOST}/admin/login`)
   }
 }
 
@@ -39,7 +39,7 @@ export function roleChecker(...permittedRoles) {
             next();
         } else {
             res.status(401).json({ msg: 'You are not authorized to view this resource because you are not an admin.' });
-            res.redirect(`${client}/dashboard`)
+            res.redirect(`${HOST}/dashboard`)
         }
     }
 }
