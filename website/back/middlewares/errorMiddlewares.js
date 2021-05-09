@@ -16,9 +16,7 @@ export const notFound = (req, res, next) => {
     next(error)
 }
 
-export const errorHandler = (err, req, res, nex) => {
-    const statusCode = res.status === 200 ? 500 : res.statusCode
-    res.status(statusCode)
+export const errorHandler = (err, req, res) => {
     res.json({
         message: err.message,
         stack: process.env.NODE_ENV === 'production' ? null : err.stack
