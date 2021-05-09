@@ -1,49 +1,42 @@
-import { Privileged } from '../models/privilegedModel'
-import { sessionizePriviliged } from '../helpers/middlewares.helpers'
-
-
+import Privileged from '../models/privilegedModel.js'
 //Read METHODS
 
-//Finding an priviliged with id
-export const findOnePriviliged = (req, res) => {
+//Finding an Privileged with id
+export const findOnePrivileged = (req, res) => {
     Privileged.findById(req.params.id)
-        .then((priviliged) => {
-            if (!priviliged) {
+        .then((Privileged) => {
+            if (!Privileged) {
                 return res.status(404).json({
-                    message: "Couldn't find the priviliged with id: " + req.id,
+                    message: "Couldn't find the Privileged with id: " + req.id,
                 })
             }
-            res.status(200).json(
-                {
-                    message: "Here is the priviliged with id: " + req.params.id
-                },
-                priviliged
+            res.status(200).json({
+                Privileged
+            }
             )
-            console.log(priviliged)
+            console.log(Privileged)
         })
         .catch((err) => {
             return res.status(500).json({
-                message: err + "\n| Found it but couldn't retrieve the priviliged with id: " + req.params.id + " |"
+                message: err + "\n| Found it but couldn't retrieve the Privileged with id: " + req.params.id + " |"
             })
         })
 }
 
-export const findAllPriviligeds = (req, res) => {
+export const findAllPrivileged = (req, res) => {
     Privileged.find({})
         .sort({ name: -1 })
         .limit(20)
-        .then((priviligeds) => {
-            res.status(200).json(
-                {
-                    message: "Here is all priviligeds"
-                },
-                priviligeds
+        .then((Privilegeds) => {
+            res.status(200).json({
+                Privilegeds
+            }
             )
-            console.log(priviligeds)
+            console.log(Privilegeds)
         })
         .catch((err) => {
             res.status(500).json({
-                message: err.message || "Couldn't get Priviligeds for some reason ¯\\_(ツ)_/¯"
+                message: err.message || "Couldn't get Privilegeds for some reason ¯\\_(ツ)_/¯"
             })
         })
 
@@ -51,46 +44,46 @@ export const findAllPriviligeds = (req, res) => {
 
 //Delete METHODS
 
-export const deletePriviliged = (req, res) => {
+export const deletePrivileged = (req, res) => {
     Privileged.findByIdAndRemove(req.params.id)
-        .then((priviliged) => {
-            if (!priviliged) {
+        .then((Privileged) => {
+            if (!Privileged) {
                 return res.status(404).json({
-                    message: "Couldn't find the priviliged with id: " + req.params.id
+                    message: "Couldn't find the Privileged with id: " + req.params.id
                 })
             }
             res.status(200).json(
                 {
                     message:
-                        "Deleted the priviliged with id: " + req.params.id
+                        "Deleted the Privileged with id: " + req.params.id
                 }
             )
         })
         .catch((err) => {
             return res.status(500).json({
-                message: "Couldn't delete priviliged"
+                message: "Couldn't delete Privileged"
             })
         })
 }
 
-export const updatePriviliged = (req, res) => {
+export const updatePrivileged = (req, res) => {
     if (!req.body.password || !req.body.name) {
         return res.status(400).json({
             message: "Fill in the required fields"
         })
     }
     Privileged.findByIdAndUpdate(req.params.id, req.body, { new: true })
-        .then((priviliged) => {
-            if (!priviliged) {
+        .then((Privileged) => {
+            if (!Privileged) {
                 return res.status(404).json({
-                    message: "Couldn't find the priviliged with id: " + req.params.id,
+                    message: "Couldn't find the Privileged with id: " + req.params.id,
                 })
             }
-            res.status(200).json(priviliged)
+            res.status(200).json(Privileged)
         })
         .catch((err) => {
             return res.status(200).json(
-                { message: err + "\n| Found it but couldn't retrieve the priviliged with id: " + req.params.id + " |" }
+                { message: err + "\n| Found it but couldn't retrieve the Privileged with id: " + req.params.id + " |" }
             );
         });
 };
