@@ -10,7 +10,14 @@ const getUsers = asyncHandler(async (req, res) => {
 const getUserById = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id).populate('Bot').lean().cache();
   if (user) {
-    res.json(user);
+    res.json({
+          _id: user._id,
+          githubId: user.githubId,
+          displayName: user.displayName,
+          image: user.image, 
+          email: user.email,
+          hasBots: user.hasBots
+        })
   } else {
     res.status(404);
     throw new Error('User not found');
@@ -22,8 +29,13 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
   if (user) {
     res.json({
-      user
-    });
+          _id: user._id,
+          githubId: user.githubId,
+          displayName: user.displayName,
+          image: user.image, 
+          email: user.email,
+          hasBots: user.hasBots
+        })
   } else {
     res.status(404);
     throw new Error('User not found');
@@ -83,6 +95,7 @@ const enterApiToken = asyncHandler(async (req, res) => {
           githubId: updatedUser.githubId,
           displayName: updatedUser.displayName,
           image: updatedUser.image, 
+          email: updatedUser.email,
           hasBots: updatedUser.hasBots
         })
     } else {
