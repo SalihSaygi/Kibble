@@ -2,42 +2,51 @@ import mongoose from 'mongoose'
 import util from 'util'
 import client from '../redisClient.js'
 //Cache
-client.get = util.promisify(client.get)
-const exec = mongoose.Query.prototype.exec
-mongoose.Query.prototype.cache = function(options = { time: 60 }) {
-  this.useCache = true,
-  this.time = options.time,
-  this.hashKey = JSON.stringify(options.key || this.mongooseCollection.name)
+client.hget = util.promisify(client.hget);
 
-  return this
+// create reference for .exec
+const exec = mongoose.Query.prototype.exec;
+
+// create new cache function on prototype
+mongoose.Query.prototype.cache = function(options = { expire: 60 }) {
+  this.useCache = true;
+  this.expire = options.expire;
+  this.hashKey = JSON.stringify(options.key || this.mongooseCollection.name);
+
+  return this;
 }
+
+// override exec function to first check cache for data
 mongoose.Query.prototype.exec = async function() {
-  if(!this.useCache) {
-    return await exec.apply(this, arguments)
+  if (!this.useCache) {
+    return await exec.apply(this, arguments);
   }
 
   const key = JSON.stringify({
-    ...this.getQuery()
-  })
-  const cacheValue = await client.hget(this.hashKey, key)
+    ...this.getQuery(),
+    collection: this.mongooseCollection.name
+  });
 
-  if(cacheValue) {
-    const doc = JSON.parse(cacheValue)
+  // get cached value from redis
+  const cacheValue = await client.hget(this.hashKey, key);
 
-    const booArray = Array.isArray(doc)
+  // if cache value is not found, fetch data from mongodb and cache it
+  if (!cacheValue) {
+    const result = await exec.apply(this, arguments);
+    client.hset(this.hashKey, key, JSON.stringify(result));
+    client.expire(this.hashKey, this.expire);
 
-    console.log("Cache Response from Redis")
-    return booArray = booArray ? doc.map(d => new this.model(d)) : new this.model(doc)
-    }
+    console.log('Return data from MongoDB');
+    return result;
+  }
 
-    const result = await exec.apply(this, arguments) 
-    console.log(this.time)
-    client.hset(this.hashKey, key, JSON.stringify(result))
-    Client.expire(this.hashKey, this.time)
-
-    console.log("Response from MongoDB")
-    return result
-}
+  // return found cachedValue
+  const doc = JSON.parse(cacheValue);
+  console.log('Return data from Redis');
+  return Array.isArray(doc)
+    ? doc.map(d => new this.model(d))
+    : new this.model(doc);
+};
 
 const clearKey = (hashKey) => {
   client.del(JSON.stringify(hashKey))
