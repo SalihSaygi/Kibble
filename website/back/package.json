@@ -6,7 +6,7 @@
     "type": "module",
     "scripts": {
         "dev": "set NODE_ENV=dev&& nodemon back/server",
-        "prod": "set NODE_ENV=prod&& node back/server",
+        "prod": "set NODE_ENV=prod&& node server.js",
         "data:import": "node data/setupData",
         "data:destroy": "node data/setupData -d",
         "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix front && npm run build --prefix front"
@@ -44,6 +44,7 @@
         "passport-local-mongoose": "^6.1.0",
         "qs": "^6.10.1",
         "spotify-web-api-node": "^5.0.2",
+        "util": "^0.12.3",
         "uuid": "^8.3.2",
         "ytdl-core": "^4.5.0"
     },
