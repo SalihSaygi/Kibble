@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import SearchBar from './SearchBar'
 import UserList from '../data/back/user/dataList'
-
+import  
 const SearchPage = ({url}) => {
   const [input, setInput] = useState('');
   const [dataListDefault, setDataListDefault] = useState();
   const [dataList, setDataList] = useState();
+
+  
 
   const fetchData = async () => {
     return await fetch(url)
