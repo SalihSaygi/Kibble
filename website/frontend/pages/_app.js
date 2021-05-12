@@ -1,20 +1,13 @@
-import { 
-   QueryClient,
-   QueryClientProvider,
-} from 'react-query'
-const queryClient = new QueryClient()
-import { ThemeProvider } from '@material-ui/core/styles'
-import theme from '../UI/Palette/Theme'
-import '../styles/globals.css'
+import { QueryClient, QueryClientProvider } from 'react-query';
+const queryClient = new QueryClient();
+import '../styles/globals.css';
 
 function MyApp({ Component, pageProps }) {
-  return(
-  <QueryClientProvider client={queryClient}>
-    <ThemeProvider theme={theme}>
+  return (
+    <QueryClientProvider client={queryClient}>
       <Component {...pageProps} />
-    </ThemeProvider>
-  </QueryClientProvider>
-  )
+    </QueryClientProvider>
+  );
 }
 
-export default MyApp
+export default MyApp;

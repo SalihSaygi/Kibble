@@ -1,14 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react';
 
 const useMenuHeight = () => {
-    const [menuHeight, setMenuHeight] = useState(null)
-    const dropdownRef = useRef(null)
+  const [menuHeight, setMenuHeight] = useState(null);
+  const dropdownRef = useRef(null);
 
-    useEffect(() => {
-        setMenuHeight(dropdownRef.current?.firstChild.offsetHeight)
-    }, [])
+  useEffect(() => {
+    setMenuHeight(dropdownRef.current?.firstChild.offsetHeight);
+  }, []);
 
-    return { menuHeight, dropdownRef }
-}
+  return { menuHeight, dropdownRef, setMenuHeight };
+};
 
-export default useMenuHeight
+export default useMenuHeight;

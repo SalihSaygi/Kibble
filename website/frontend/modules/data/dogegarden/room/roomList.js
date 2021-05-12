@@ -1,10 +1,10 @@
 import { getRooms } from '@apiCalls/dogegarden/roomApi';
 import React from 'react';
-import Bot from './botDetails';
+import Room from './roomDetails';
 
-const Bots = () => {
+const Rooms = () => {
   // Queries
-  const { isLoading, isError, data, error } = useQuery('bots', getRooms);
+  const { isLoading, isError, data, error } = useQuery('rooms', getRooms);
 
   if (isLoading) {
     return <span>Loading...</span>;
@@ -16,11 +16,11 @@ const Bots = () => {
 
   return (
     <>
-      {data.map(bot => {
-        if (bot) {
+      {data.map(room, index => {
+        if (room) {
           return (
             <div key={index}>
-              <Bot bot={bot} />
+              <Room room={room} />
             </div>
           );
         }
@@ -30,4 +30,4 @@ const Bots = () => {
   );
 };
 
-export default Bots;
+export default Rooms;

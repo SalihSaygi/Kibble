@@ -1,23 +1,21 @@
-import Axios from "axios";
-import React, { useEffect, useState } from "react";
-import "./AccountPage.css";
+import Axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import './AccountPage.css';
 
 const Profile = () => {
-  const [profileInfo, setProfileInfo] = useState<any>({
-    displayName: "",
-    image: "",
-    email: "",
-    apiToken: "",
-    hasBots: []
+  const [profileInfo, setProfileInfo] = useState({
+    displayName: '',
+    image: '',
+    apiToken: '',
+    hasBots: [],
   });
 
   useEffect(() => {
-    Axios.get(`http://localhost:3001/profile`).then((response) => {
+    Axios.get(`http://localhost:3050/api/users/profile`).then(response => {
       console.log(response);
       setProfileInfo({
         displayName: response.data[0].displayName,
         image: response.data[0].image,
-        email: response.data[0].email,
         apiToken: response.data[0].apiToken,
       });
     });
@@ -32,7 +30,6 @@ const Profile = () => {
         <div>
           <h1>{profileInfo.displayName} </h1>
           <img src={profileInfo.image} />
-          <h3>{profileInfo.email}</h3>
           <hr />
           <h4> : {profileInfo.apiToken}</h4>
         </div>

@@ -1,23 +1,24 @@
-import { useRouter } from 'next/router'
-import React from 'react'
-import './index.css'
+import { useRouter } from 'next/router';
+import React from 'react';
+import styles from './DropItem.module.css';
 
-const DropItem = ({url, goToMenu, leftIcon, rightIcon, children}) => {
-    const handleClick = (e) => {
-        if(goToMenu) {
-            setActiveMenu(goToMenu)
-        }
-        const router = useRouter()
-        e.preventDefault()
-        router.push(url)
+const DropItem = ({ url, goToMenu, leftIcon, rightIcon, children }) => {
+  const router = useRouter();
+
+  const handleClick = e => {
+    if (goToMenu) {
+      setActiveMenu(goToMenu);
     }
-    return (
-        <a href="#" className="menu-item" onClick={handleClick}>
-            <span className="icon-button">{leftIcon}</span>
-            {children}
-            <span className="icon-right">{rightIcon}</span>
-        </a>
-    )
-}
+    e.preventDefault();
+    router.push(url);
+  };
+  return (
+    <a href="#" className={styles.menuItem} onClick={handleClick}>
+      <span className={styles.iconButton}>{leftIcon}</span>
+      {children}
+      <span className={styles.iconRight}>{rightIcon}</span>
+    </a>
+  );
+};
 
-export default DropItem
+export default DropItem;

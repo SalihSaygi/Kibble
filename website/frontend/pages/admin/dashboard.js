@@ -1,3 +1,3 @@
-import Main from '../../modules/dashboard/adminDash/Main'
+import Main from '@modules/dashboard/adminDash/Main';
 
-export default Main
+export default Main;

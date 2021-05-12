@@ -1,10 +1,10 @@
 import React from 'react';
 import Bot from './botDetails';
-import getBot from '@apiCalls/back/botApi'
- 
+import getProfileBots from '@apiCalls/back/userApi'
+
 const Bots = () => { 
    // Queries
-  const {isLoading, isError, data, error} = useQuery('bots', getBot)
+  const {isLoading, isError, data, error} = useQuery('bots', getProfileBots)
 
   if (isLoading) {
      return <span>Loading...</span>
@@ -16,11 +16,11 @@ const Bots = () => {
 
   return (
     <>
-    { data.map((bot) => {
+    { data.map((bot, index) => {
         if (bot) {
           return (
-            <div key={bot._id}>
-              <Bot bot={bot.displayName}/>
+            <div key={index}>
+              <Bot bot={bot}/>
 	        </div>	
     	   )	
     	 }

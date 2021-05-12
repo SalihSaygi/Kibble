@@ -6,7 +6,6 @@ const User = ({ user }) => {
       <img src={user.image} alt="profilePhoto"/>
       <h3>{ user.displayName }</h3>
       <h4>{user.githubId}</h4>
-      <p>Email: { user.email }</p>
       <p>API Token - { user.apiToken }</p>
       <p>Bots: - {user.hasBots.map(bot => {
           if(bot) {

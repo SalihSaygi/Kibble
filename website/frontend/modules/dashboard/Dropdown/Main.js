@@ -1,24 +1,18 @@
-import React from 'react'
-import Navbar from './Navbar'
-import Item from './Item'
-import DropMenu from './DropMenu'
+import React from 'react';
+import Navbar from './Navbar';
+import Item from './Item';
+import DropMenu from './DropMenu';
 //Icons
-import { ReactComponent as BellIcon } from './icons/bell.svg';
-import { ReactComponent as MessengerIcon } from '../icons/messenger.svg';
-import { ReactComponent as CaretIcon } from '../icons/caret.svg';
-import { ReactComponent as PlusIcon } from '../icons/plus.svg';
+import { ArrowForwardIosIcon as ForwardIcon } from '@material-ui/icons/ArrowForwardIos';
+
 const Dropdown = () => {
-    return (
-        <Navbar>
-            <Item icon={<PlusIcon />} />
-            <Item icon={<BellIcon />} />
-            <Item icon={<MessengerIcon />} />
+  return (
+    <Navbar>
+      <Item icon={<ForwardIcon />}>
+        <DropMenu></DropMenu>
+      </Item>
+    </Navbar>
+  );
+};
 
-            <Item icon={<CaretIcon />}>
-                <DropMenu></DropMenu>
-            </Item>
-        </Navbar>
-    )
-}
-
-export default Dropdown
+export default Dropdown;

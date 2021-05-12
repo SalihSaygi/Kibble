@@ -2,8 +2,8 @@
     "compilerOptions": {
         "baseUrl": "./",
         "paths": {
-            "@api/*": [
-                "api/*"
+            "@apiCalls/*": [
+                "apiCalls/*"
             ],
             "@form/*": [
                 "form/*"

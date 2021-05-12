@@ -1,12 +1,12 @@
-import React from 'react'
-import './index.css'
+import React from 'react';
+import styles from './Navbar.module.css';
 
-const Navbar = ({children}) => {
-    return (
-        <nav className="navbar">
-           <ul className="navbar-nav">{children}</ul> 
-        </nav>
-    )
-}
+const Navbar = ({ children }) => {
+  return (
+    <nav className={styles.navbar}>
+      <ul className={styles.navbarNav}>{children}</ul>
+    </nav>
+  );
+};
 
-export default Navbar
+export default Navbar;

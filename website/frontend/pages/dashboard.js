@@ -1,3 +1,3 @@
-import Header from '../modules/dashboard/Header';
+import Dashboard from '@modules/dashboard/userDash/Main';
 
-export default Header
+export default Dashboard;

@@ -1,8 +1,7 @@
 import React from 'react';
 import User from './userDetails'
-import { useQuery, useQueryClient } from 'react-query'
+import { useQuery } from 'react-query'
 import { getUsers } from '../../../api/userApi'
-import mutation from './userMutate'
 
 const Users = () => { 
    // Queries
@@ -14,11 +13,6 @@ const Users = () => {
  
    if (isError) {
      return <span>Error: {error.message}</span>
-   }
-
-   const onSubmit = event => {
-     event.preventDefault()
-     mutation.mutate(new FormData(event.target))
    }
 
   return (
@@ -35,12 +29,6 @@ const Users = () => {
         return null
       }) }
       </ul>
-    <button onClick={() => {
-      mutation.mutate({
-        apiToken: generateToken()
-      })
-    }}></button>
-    <form onSubmit={onSubmit}>form</form>
     </>
   );
 }
