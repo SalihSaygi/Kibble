@@ -1,42 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import SearchBar from './SearchBar';
-import UserList from '../data/back/user/dataList';
 import useSearch from '@hooks/useSearch';
+import SearchParams from './SearchParams';
+import DataList from './DataList';
 
-const SearchPage = ({ url }) => {
-  const [input, setInput] = useState('');
-  const [dataListDefault, setDataListDefault] = useState();
-  const [dataList, setDataList] = useState();
+const SearchPage = ({ type }) => {
+  const [isLoading, isError, dataList, input, updateInput, entity] = useSearch(
+    SearchParams(type)
+  );
 
-  const [isLoading]
+  if (isLoading) {
+    return <span>Loading...</span>;
+  }
 
-  const fetchData = async () => {
-    return await fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        setUserList(data);
-        setUserListDefault(data);
-      });
-  };
-
-  const updateInput = async input => {
-    const filtered = userListDefault.filter(data => {
-      return data.name.toLowerCase().includes(input.toLowerCase());
-    });
-    setInput(input);
-    setUserList(filtered);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
+  if (isError) {
+    return <span>Error: {error.message}</span>;
+  }
 
   return (
     <>
-      <h1>User List</h1>
+      <h1>SearchBar</h1>
       <SearchBar input={input} onChange={updateInput} />
-      <UserList /> ? <UserList userList={dataList} /> :{' '}
-      <BotList botList={dataList} />
+      <DataList dataList={dataList} entity={entity} />
     </>
   );
 };
