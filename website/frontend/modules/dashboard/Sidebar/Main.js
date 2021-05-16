@@ -1,27 +1,33 @@
-import SidebarNav from './SidebarNav';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from 'react';
+import Link from 'next/link';
+import MenuIcon from '@material-ui/icons/Menu';
+import CloseIcon from '@material-ui/icons/Close';
+import { SidebarData } from './Data';
+import Drop from './Drop';
+import styles from './styles/Sidebar.module.css';
 
-function Main() {
+const SidebarNav = () => {
   return (
-    <Router>
-      <SidebarNav />
-      <Switch>
-        <Route path="/dashboard" exact component={dashboard} />
-        <Route path="/dashboard/join" exact component={join} />
-        <Route path="/dashboard/info" exact component={info} />
-        <Route path="/modules" exact component={modules} />
-        <Route path="/commands" exact component={commands} />
-        <Route path="/commands/announcements" exact component={Announcement} />
-        <Route path="/commands/moderation" exact component={moderation} />
-        <Route path="/commands/roles" exact component={roles} />
-        <Route path="/commands/fun" exact component={fun} />
-        <Route path="/commands/tags" exact component={tags} />
-        <Route path="/commands/welcome" exact component={welcome} />
-        <Route path="/report" exact component={report} />
-        <Route path="/premium" exact component={premium} />
-      </Switch>
-    </Router>
+    <>
+      <div className={styles.Nav}>
+        <Link href="#" className={styles.NavIcon}>
+          <MenuIcon />
+        </Link>
+      </div>
+      <nav className={styles.sidebarNav}>
+        <div className={styles.sidebarWrap}>
+          <Link href="#">
+            <div className={styles.NavIcon}>
+              <CloseIcon />
+            </div>
+          </Link>
+          {SidebarData.map((item, index) => {
+            return <Drop item={item} key={index} />;
+          })}
+        </div>
+      </nav>
+    </>
   );
-}
+};
 
-export default Main;
+export default SidebarNav;

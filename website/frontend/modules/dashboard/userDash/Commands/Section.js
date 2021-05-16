@@ -5,11 +5,13 @@ import CommandBox from './CommandBox';
 const Section = ({ command }) => {
   return (
     <div>
-      <Header header={command.header} icon={command.icon} />
+      <Header name={command.header} icon={command.icon} />
       <div>
-        {command.items.map((command, index) => {
-          return <CommandBox command={command} key={index} />;
-        })}
+        {command.items.map(item =>
+          item.map((itemInfo, index) => {
+            return <CommandBox command={itemInfo} key={index} />;
+          })
+        )}
       </div>
     </div>
   );

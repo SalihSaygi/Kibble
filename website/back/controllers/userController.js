@@ -1,6 +1,6 @@
 import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
-import { clearKey } from '../services/cache.js'
+import { clearKey } from '../services/cache.js';
 
 const getUsers = asyncHandler(async (req, res) => {
   const users = await User.find({}).populate('Bot').lean().cache({ time: 10 });
@@ -8,16 +8,17 @@ const getUsers = asyncHandler(async (req, res) => {
 });
 
 const getUserById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.params.id).populate('Bot').lean().cache();
+  const user = await User.findById(req.params.id)
+    .populate('Bot')
+    .lean()
+    .cache();
   if (user) {
     res.json({
-          _id: user._id,
-          githubId: user.githubId,
-          displayName: user.displayName,
-          image: user.image, 
-          email: user.email,
-          hasBots: user.hasBots
-        })
+      githubId: user.githubId,
+      displayName: user.displayName,
+      image: user.image,
+      hasBots: user.hasBots,
+    });
   } else {
     res.status(404);
     throw new Error('User not found');
@@ -25,90 +26,82 @@ const getUserById = asyncHandler(async (req, res) => {
 });
 
 const getUserProfile = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id).populate('Bot').lean().cache();
-
+  console.log(req.user.id);
+  const user = await User.findById(req.user.id);
+  console.log(user);
   if (user) {
     res.json({
-          _id: user._id,
-          githubId: user.githubId,
-          displayName: user.displayName,
-          image: user.image, 
-          email: user.email,
-          hasBots: user.hasBots
-        })
+      githubId: user.githubId,
+      displayName: user.displayName,
+      image: user.image,
+      hasBots: user.hasBots,
+    });
   } else {
     res.status(404);
     throw new Error('User not found');
   }
 });
 
-//Get logged in user's sepcified bot
-//api/users/profile/bots/:id
-const getUsersOneBotById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id).populate('Bot').lean().cache();
-  const bot = await Bot.findById(req.params.id)
-  if (user) {
-    const { hasBots } = user
-    if(hasBots.length > 0) {
-      const selectedBot = hasBots.filter(hasBot => 
-          hasBot._id === bot.id)
-      res.json(selectedBot)
-    } else {
-      res.status(404);
-      throw new Error('User has no bots')
-    }
-  } else {
-    res.status(404);
-    throw new Error('User not found')
-  }
-})
+// //Get logged in user's sepcified bot
+// //api/users/profile/bots/:id
+// const getUsersOneBotById = asyncHandler(async (req, res) => {
+//   const user = await User.findById(req.user.id).populate('Bot').lean().cache();
+//   const bot = await Bot.findById(req.params.id);
+//   if (user) {
+//     const { hasBots } = user;
+//     if (hasBots.length > 0) {
+//       const selectedBot = hasBots.filter(hasBot => hasBot._id === bot.id);
+//       res.json(selectedBot);
+//     } else {
+//       res.status(404);
+//       throw new Error('User has no bots');
+//     }
+//   } else {
+//     res.status(404);
+//     throw new Error('User not found');
+//   }
+// });
 
-//Get logged in user's bots
-//api/users/profile/bots
-const getUsersBotsById = asyncHandler(async (req, res) => {
-  const user = await User.findById(req.user.id).populate('Bot').lean().cache();
+// //Get logged in user's bots
+// //api/users/profile/bots
+// const getUsersBotsById = asyncHandler(async (req, res) => {
+//   const user = await User.findById(req.user.id).populate('Bot').lean().cache();
 
-  if (user) {
-    const { hasBots } = user
-    if(hasBots.length > 0) {
-      res.json(hasBots)
-    } else {
-      res.status(404);
-      throw new Error('User has no bots')
-    }
-  } else {
-    res.status(404);
-    throw new Error('User not found')
-  }
-})
-//Normal Way
+//   if (user) {
+//     const { hasBots } = user;
+//     if (hasBots.length > 0) {
+//       res.json(hasBots);
+//     } else {
+//       res.status(404);
+//       throw new Error('User has no bots');
+//     }
+//   } else {
+//     res.status(404);
+//     throw new Error('User not found');
+//   }
+// });
+
 const enterApiToken = asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user.id).populate().lean().cache()
+  const user = await User.findById(req.user.id);
 
-    const apiToken = req.body.apiToken
+  const apiToken = req.body.apiToken;
 
-    if(user) {
-        user.apiToken = apiToken
-        const updatedUser = await user.save()
-        res.json({
-          _id: updatedUser._id,
-          githubId: updatedUser.githubId,
-          displayName: updatedUser.displayName,
-          image: updatedUser.image, 
-          email: updatedUser.email,
-          hasBots: updatedUser.hasBots
-        })
-    } else {
-      res.status(404);
-      throw new Error('Error entering api token')
-    }
-})
+  if (user) {
+    user.apiToken = apiToken;
+    const updatedUser = await user.save();
+    res.json(updatedUser);
+    console.log('entered api TOKEN');
+  } else {
+    res.status(404);
+    throw new Error('Error entering api token');
+  }
+});
 
-export { 
-  getUsers, 
-  getUserById, 
-  getUserProfile, 
-  getUsersOneBotById, 
-  getUsersBotsById, 
-  enterApiToken 
-}
+export {
+  getUsers,
+  getUserById,
+  getUserProfile,
+  // getUsersOneBotById,
+  // getUsersBotsById,
+  enterApiToken,
+};

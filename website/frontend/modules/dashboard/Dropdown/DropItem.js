@@ -1,6 +1,6 @@
-import { useRouter } from 'next/router';
 import React from 'react';
-import styles from './DropItem.module.css';
+import styles from './styles/DropItem.module.css';
+import { useRouter } from 'next/router';
 
 const DropItem = ({ url, goToMenu, leftIcon, rightIcon, children }) => {
   const router = useRouter();

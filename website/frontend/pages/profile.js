@@ -1,3 +1,3 @@
-import CurrentUser from '@modules/data/back/user/currentUser';
+import Authorize from '@modules/data/back/user/authorize';
 
-export default CurrentUser;
+export default Authorize;

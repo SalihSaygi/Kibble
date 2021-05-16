@@ -1,22 +1,24 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-const BotSchema = mongoose.Schema({
-  displayName: {
-    type: String,
-    required: true,
+const BotSchema = mongoose.Schema(
+  {
+    displayName: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+    },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
   },
-  image: {
-    type: String,
-    required: true
-  },
-  createdBy: {
-      type: mongoose.Schema.Types.ObjectId, 
-      ref: 'User'
-  },
-}, {
-      timestamps: true
-})
+  {
+    timestamps: true,
+  }
+);
 
-const Bot = mongoose.model('Bot', BotSchema)
+const Bot = mongoose.model('Bot', BotSchema);
 
-export default Bot
+export default Bot;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import styles from './Drop.module.css';
+import NavLink from './NavLink';
+import styles from './styles/Drop.module.css';
 
 const Drop = ({ item }) => {
   const [subnav, setSubnav] = useState(false);
@@ -12,19 +12,21 @@ const Drop = ({ item }) => {
       <NavLink
         activeClassName={styles.sidebarLinkActive}
         className={styles.sidebarLink}
-        to={item.path}
+        href={item.path}
         onClick={item.subNav && showSubnav}
       >
         <div>
-          {item.icon}
-          <span classname={styles.sidebarLabel}>{item.title}</span>
-        </div>
-        <div>
-          {item.subNav && subnav
-            ? item.iconOpened
-            : item.subNav
-            ? item.iconClosed
-            : null}
+          <div>
+            {item.icon}
+            <span classname={styles.sidebarLabel}>{item.title}</span>
+          </div>
+          <div>
+            {item.subNav && subnav
+              ? item.iconOpened
+              : item.subNav
+              ? item.iconClosed
+              : null}
+          </div>
         </div>
       </NavLink>
       {subnav &&
@@ -33,16 +35,18 @@ const Drop = ({ item }) => {
             <NavLink
               activeClassName={styles.dropdownLinkActive}
               className={styles.dropdownLink}
-              to={item.path}
+              href={item.path}
               key={index}
             >
-              {item.icon}
-              <span
-                activeClassName={styles.sidebarLabelActive}
-                className={sidebarLabel}
-              >
-                {item.title}
-              </span>
+              <div>
+                {item.icon}
+                <span
+                  activeClassName={styles.sidebarLabelActive}
+                  className={sidebarLabel}
+                >
+                  {item.title}
+                </span>
+              </div>
             </NavLink>
           );
         })}

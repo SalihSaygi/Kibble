@@ -3,13 +3,13 @@ import Navbar from './Navbar';
 import Item from './Item';
 import DropMenu from './DropMenu';
 //Icons
-import { ArrowForwardIosIcon as ForwardIcon } from '@material-ui/icons/ArrowForwardIos';
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 const Dropdown = () => {
   return (
     <Navbar>
-      <Item icon={<ForwardIcon />}>
-        <DropMenu></DropMenu>
+      <Item icon={<ArrowForwardIosIcon />}>
+        <DropMenu />
       </Item>
     </Navbar>
   );

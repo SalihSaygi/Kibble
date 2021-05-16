@@ -1,10 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
 
 const axi = axios.create({
-  baseURL: "http://localhost:3050",
+  baseURL: 'http://localhost:3050',
+  withCredentials: true,
   headers: {
-    "Content-type": "application/json"
-  }
+    'Content-Type': 'application/json',
+    'Access-Control-Allow-Credentials': true,
+  },
 });
 
-export default axi
+export default axi;

@@ -1,7 +1,7 @@
 import React from 'react';
 import User from './userDetails';
 import { useQuery } from 'react-query';
-import { getProfile } from '../../../api/userApi';
+import { getProfile } from '@apiCalls/back/userApi';
 
 const CurrentUser = () => {
   // Queries

@@ -1,6 +1,6 @@
 import HomeIcon from '@material-ui/icons/Home';
 
-export const CommandData = [
+const CommandData = [
   {
     header: 'Welcome',
     place: '#welcome',
@@ -135,3 +135,5 @@ export const CommandData = [
     ],
   },
 ];
+
+export default CommandData;

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './Item.module.css';
+import styles from './styles/Item.module.css';
 
 const Item = ({ icon, children }) => {
   const [open, setOpen] = useState(false);

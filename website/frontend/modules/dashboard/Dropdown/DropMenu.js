@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styles from './DropMenu.module.css';
+import React, { useState, useRef, useEffect } from 'react';
+import styles from './styles/DropMenu.module.css';
 import DropItem from './DropItem';
 import { CSSTransition } from 'react-transition-group';
 //Icons
@@ -18,12 +18,21 @@ import { ArrowBackIosIcon as BackIcon } from '@material-ui/icons/ArrowBackIos';
 
 import useMenuHeight from './useMenuHeight';
 
+import { getProfile } from '@apiCalls/back/userApi';
+import { useQuery } from 'react-query';
+
 const DropMenu = () => {
   const url = window.location.href;
 
   const [activeMenu, setActiveMenu] = useState('main');
+  const [menuHeight, setMenuHeight] = useState(null);
+  const dropdownRef = useRef(null);
 
-  const { menuHeight, dropdownRef, setMenuHeight } = useMenuHeight();
+  useEffect(() => {
+    setMenuHeight(dropdownRef.current?.firstChild.offsetHeight);
+  }, []);
+
+  const { data } = useQuery('currentUser', getProfile);
 
   const calcHeght = element => {
     const height = element.offsetHeight;
@@ -43,8 +52,8 @@ const DropMenu = () => {
         unmountOnExit
         onEnter={calcHeght}
       >
-        <div>
-          <DropItem className={styles.menu}>{profile.name}</DropItem>
+        <div className={styles.menu}>
+          <DropItem>{data.displayName}</DropItem>
           <DropItem leftIcon={<AccountBoxIcon />} url={`${url}/profile`}>
             My Profile
           </DropItem>

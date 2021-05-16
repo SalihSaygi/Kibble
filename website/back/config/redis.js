@@ -1,17 +1,22 @@
-import dotenv from 'dotenv'
-dotenv.config()
+import dotenv from 'dotenv';
+dotenv.config();
 
-const {
-  REDIS_PORT,
-  REDIS_HOST,
-  REDIS_PASSWORD
-} = process.env
+const { PROD_REDIS_PORT, PROD_REDIS_HOST, PROD_REDIS_PASSWORD } = process.env;
 
-const REDIS_PORT_N = parseInt(REDIS_PORT)
+const { DEV_REDIS_PORT, DEV_REDIS_HOST, DEV_REDIS_PASSWORD } = process.env;
 
-export const REDIS_OPTIONS = {
-  port: REDIS_PORT_N,
-  host: REDIS_HOST,
-  password: REDIS_PASSWORD,
-  retry_strategy: () => 1000
-}
+const PROD_REDIS_PORT_N = parseInt(PROD_REDIS_PORT);
+const DEV_REDIS_PORT_N = parseInt(DEV_REDIS_PORT);
+
+export const PROD_REDIS_OPTIONS = {
+  port: PROD_REDIS_PORT_N,
+  host: PROD_REDIS_HOST,
+  password: PROD_REDIS_PASSWORD,
+  retry_strategy: () => 1000,
+};
+export const DEV_REDIS_OPTIONS = {
+  port: DEV_REDIS_PORT_N,
+  host: DEV_REDIS_HOST,
+  password: DEV_REDIS_PASSWORD,
+  retry_strategy: () => 1000,
+};

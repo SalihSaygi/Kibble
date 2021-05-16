@@ -1,35 +1,35 @@
-import mongoose from 'mongoose'
+import mongoose from 'mongoose';
 
-const UserSchema = new mongoose.Schema({
-  githubId: {
-    type: String,
-    required: true,
+const UserSchema = new mongoose.Schema(
+  {
+    githubId: {
+      type: String,
+      required: true,
+    },
+    displayName: {
+      type: String,
+      required: true,
+    },
+    image: {
+      type: String,
+      requried: true,
+    },
+    apiToken: {
+      type: String,
+      default: '',
+    },
+    hasBots: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Bot',
+      },
+    ],
   },
-  displayName: {
-    type: String,
-    required: true,
-  },
-  image: {
-    type: String,
-    requried: true
-  },
-  email: {
-    type: String,
-    required: true
-  },
-  apiToken: {
-    type: String,
-    required: true
-  },
-  hasBots: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Bot'
-  }],
-},
-    {
-    timestamps: true
-})
+  {
+    timestamps: true,
+  }
+);
 
-const User = mongoose.model('User', UserSchema)
+const User = mongoose.model('User', UserSchema);
 
-export default User
+export default User;
