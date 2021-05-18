@@ -28,9 +28,13 @@ async function getProfile() {
   }
 }
 
-async function postProfileApiToken(apiToken) {
+async function postProfileApiToken(accessToken, refreshToken) {
   try {
-    const { status } = await axi.put('/api/users/profile', apiToken);
+    const { status } = await axi.put(
+      '/api/users/profile',
+      accessToken,
+      refreshToken
+    );
     return status;
   } catch (err) {
     console.error(err);

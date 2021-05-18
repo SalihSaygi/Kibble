@@ -14,7 +14,11 @@ const UserSchema = new mongoose.Schema(
       type: String,
       requried: true,
     },
-    apiToken: {
+    accessToken: {
+      type: String,
+      default: '',
+    },
+    refreshToken: {
       type: String,
       default: '',
     },
