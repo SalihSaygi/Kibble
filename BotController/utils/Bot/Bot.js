@@ -1,51 +1,46 @@
-import ManagerBot from './ManagerBot';
-import BotResponse from './BotResponse';
-import Moonstone from 'moonstone-wrapper';
+import ManagerBot from './ManagerBot.js';
 
-class Bot extends ManagerBot {
+class Bot {
   constructor(name) {
-    (this.name = name), this.botData;
+    (this.name = name), this.botData, this.manager. this.room
   }
 
-  response() {
-    const response = new BotResponse(this.botData);
-    return response;
+  initialize(accessToken, refreshToken) {
+    this.accessToken = accessToken
+    this.refreshToken = refreshToken
+    this.manager = new ManagerBot();
+    const self = this
+    const newBotData = self.initialize(accessToken, refreshToken)
+    const credentials = await http.bot.auth(newBotData.apiKey);
+    if (credentials) {
+      this.botData = this.manager.initialize(
+        credentials.accessToken,
+        credentials.refreshToken
+      );
+    }
+    const botData = this.manager.initialize(accessToken, refreshToken);
+    return botData
   }
 
-  access() {
-    const bot = Moonstone(this.response());
-    return bot;
-  }
-
-  joinPublic() {
-    const bot = this.access();
-    bot.on('ready', async user => {
-      console.log('Ready! Logged in as ' + user.username);
-      const room = await Room.findPublic(bot);
+  joinPublicOrCreateOne(roomData = null) {
+    const bot = this.initialize(this.accessToken, this.refreshToken);
+    this.room = new Room();
+    const user = this.manager.connection.user;
+    const room = await Room.findPublic(bot, user);
+    if (!room) {
+      const room = Room.createPublic(bot, roomData);
       await bot.joinRoom(room);
-    });
+      bot.connect();
+    }
+    await bot.joinRoom(room);
     bot.connect();
   }
 
-  async create(accessToken, refreshToken) {
-    const Manager = new ManagerBot();
-    const ManagingBot = Manager.initialize(accessToken, refreshToken);
-    ManagingBot.on('ready', async user => {
-      console.log('Ready! Logged in as ' + user.username);
-      try {
-        const botData = await ManagingBot.createBotAccount(this.name);
-        if (botData.isUsernameTaken === true) {
-          throw new Error('Bot with this name already exists.');
-        }
-        if (!botData.error === null) {
-          throw new Error(bot.error);
-        }
-        console.log(botData);
-        this.botData = botData;
-      } catch (err) {
-        throw new Error(err);
-      }
-    });
+  schedule(roomData = null, date, repeat = null) {
+    const bot = this.initialize();
+    if(repeat === null) {
+      const 
+    }
   }
 }
 
